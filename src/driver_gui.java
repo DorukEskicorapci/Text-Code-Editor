@@ -7,6 +7,11 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
+import javax.swing.text.MutableAttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -23,6 +28,40 @@ public class driver_gui extends javax.swing.JFrame {
      */
     public driver_gui() {
         initComponents();
+        jEditorPane1.setEditorKit(new javax.swing.text.StyledEditorKit());
+        jEditorPane2.setEditorKit(new javax.swing.text.StyledEditorKit());
+
+        jEditorPane1.addCaretListener(e -> updateStyleButtons());
+        
+    }
+
+    private void updateStyleButtons() {
+        int start = jEditorPane1.getSelectionStart();
+        int end = jEditorPane1.getSelectionEnd();
+        int pos = (start == end) ? start : start;
+
+        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+
+        if (pos >= doc.getLength()) {
+            pos = doc.getLength() - 1;
+        }
+        if (pos < 0) {
+            return;
+        }
+
+        javax.swing.text.Element element = doc.getCharacterElement(pos);
+        javax.swing.text.AttributeSet attrs = element.getAttributes();
+
+        boolean isBold   = StyleConstants.isBold(attrs);
+        boolean isItalic = StyleConstants.isItalic(attrs);
+
+        Button_Bold.setSelected(isBold);
+        Button_italic.setSelected(isItalic);
+
+
+        
+
+
     }
 
     
@@ -170,12 +209,12 @@ public class driver_gui extends javax.swing.JFrame {
         jMenu8.setText("Reload Version");
         jMenu1.add(jMenu8);
 
-        int countversion = 5;
+        int countversion = 1;
         for (int i = 1; i <= countversion; i++) {
 
             javax.swing.JMenuItem versionItem = new javax.swing.JMenuItem("Version " + i);
             versionItem.addActionListener((evt) -> {
-            // Your code here
+                codetrials.copy(jEditorPane2, jEditorPane1);
                 
             });
             jMenu8.add(versionItem);
@@ -194,7 +233,7 @@ public class driver_gui extends javax.swing.JFrame {
         // CONTROL + S (SAVE)
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getRootPane().getActionMap();
-        
+
         KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
         inputMap.put(ctrlS, "saveAction");
         actionMap.put("saveAction", new AbstractAction() {
@@ -256,10 +295,41 @@ public class driver_gui extends javax.swing.JFrame {
 
     private void Button_italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_italicActionPerformed
         // TODO add your handling code here:
+        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+        SimpleAttributeSet attr = new SimpleAttributeSet();
+        boolean makeItalic = Button_italic.isSelected();
+        StyleConstants.setItalic(attr, makeItalic);
+
+        int start = jEditorPane1.getSelectionStart();
+        int end = jEditorPane1.getSelectionEnd();
+        int length = end - start;
+        if(jEditorPane1.getSelectedText() != null){
+            doc.setCharacterAttributes(start, length, attr, false);
+        } else {
+            MutableAttributeSet inputAttrs = ((StyledEditorKit) jEditorPane1.getEditorKit()).getInputAttributes();
+            StyleConstants.setItalic(inputAttrs, makeItalic);
+        }
+
+        
     }//GEN-LAST:event_Button_italicActionPerformed
 
     private void Button_BoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_BoldActionPerformed
         // TODO add your handling code here:
+
+        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+        SimpleAttributeSet attr = new SimpleAttributeSet();
+        boolean makeBold = Button_Bold.isSelected();
+        StyleConstants.setBold(attr, makeBold);
+
+        int start = jEditorPane1.getSelectionStart();
+        int end = jEditorPane1.getSelectionEnd();
+        int length = end - start;
+        if(jEditorPane1.getSelectedText() != null){
+            doc.setCharacterAttributes(start, length, attr, false);
+        } else {
+        MutableAttributeSet inputAttrs = ((StyledEditorKit) jEditorPane1.getEditorKit()).getInputAttributes();
+        StyleConstants.setBold(inputAttrs, makeBold);
+        }
     }//GEN-LAST:event_Button_BoldActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
