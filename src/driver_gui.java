@@ -1,12 +1,23 @@
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.Box;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.KeyStroke;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 
 /**
  *
  * @author doruk
  */
 public class driver_gui extends javax.swing.JFrame {
-
+    codetrials codetrials = new codetrials();
     /**
      * Creates new form writing
      */
@@ -23,6 +34,7 @@ public class driver_gui extends javax.swing.JFrame {
         jEditorPane1 = new javax.swing.JEditorPane();
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JMenuItem();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -42,6 +54,8 @@ public class driver_gui extends javax.swing.JFrame {
         jMenu9 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         String check_saved = "Unsaved";
+
+        
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -155,19 +169,44 @@ public class driver_gui extends javax.swing.JFrame {
 
         jMenu8.setText("Reload Version");
         jMenu1.add(jMenu8);
-        
+
         int countversion = 5;
         for (int i = 1; i <= countversion; i++) {
 
             javax.swing.JMenuItem versionItem = new javax.swing.JMenuItem("Version " + i);
             versionItem.addActionListener((evt) -> {
             // Your code here
+                
             });
             jMenu8.add(versionItem);
         }
 
-        jMenu9.setText("Save");
-        jMenu1.add(jMenu9);
+        jLabel2.setText("Save");
+        jMenu1.add(jLabel2);
+
+
+        // save button
+        jLabel2.addActionListener(e -> {
+            new codetrials().copy(jEditorPane1, jEditorPane2);
+
+        });
+
+        // CONTROL + S (SAVE)
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = getRootPane().getActionMap();
+        
+        KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+        inputMap.put(ctrlS, "saveAction");
+        actionMap.put("saveAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent d) {
+                new codetrials().copy(jEditorPane1, jEditorPane2);
+            }
+        });
+        
+
+
+           
 
         jMenu10.setText("Save as");
         jMenu1.add(jMenu10);
@@ -262,6 +301,9 @@ public class driver_gui extends javax.swing.JFrame {
         });
     }
 
+
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton Button_Bold;
     private javax.swing.JToggleButton Button_italic;
@@ -273,6 +315,7 @@ public class driver_gui extends javax.swing.JFrame {
     private javax.swing.JEditorPane jEditorPane2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
