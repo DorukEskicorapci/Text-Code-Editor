@@ -1,3 +1,6 @@
+import javax.swing.Box;
+import javax.swing.JLabel;
+
 /**
  *
  * @author doruk
@@ -33,10 +36,12 @@ public class driver_gui extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+        String check_saved = "Unsaved";
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -54,6 +59,7 @@ public class driver_gui extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jEditorPane1);
 
         jToolBar1.setRollover(true);
+        jToolBar1.setFloatable(false);
 
         jLabel1.setText("Font Settings:  ");
         jToolBar1.add(jLabel1);
@@ -119,7 +125,8 @@ public class driver_gui extends javax.swing.JFrame {
         jEditorPane2.setEditable(false);
         jScrollPane2.setViewportView(jEditorPane2);
 
-        jTabbedPane2.addTab("tab1", jScrollPane2);
+        int version_count = 1;
+        jTabbedPane2.addTab("Version " + version_count, jScrollPane2);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -130,20 +137,53 @@ public class driver_gui extends javax.swing.JFrame {
 
         jMenuBar1.setInheritsPopupMenu(true);
 
-        jMenu2.setText("File");
+        jMenu1.setText("File");
+
+        
+
+        
+
+        JLabel saved_Label = new JLabel("[" + check_saved + "]");
+        
+
+        
+        
+        
 
         jMenu7.setText("Open");
-        jMenu2.add(jMenu7);
+        jMenu1.add(jMenu7);
 
-        jMenu8.setText("Save");
-        jMenu2.add(jMenu8);
+        jMenu8.setText("Reload Version");
+        jMenu1.add(jMenu8);
+        
+        int countversion = 5;
+        for (int i = 1; i <= countversion; i++) {
 
-        jMenu9.setText("Save as");
-        jMenu2.add(jMenu9);
+            javax.swing.JMenuItem versionItem = new javax.swing.JMenuItem("Version " + i);
+            versionItem.addActionListener((evt) -> {
+            // Your code here
+            });
+            jMenu8.add(versionItem);
+        }
 
-        jMenuBar1.add(jMenu2);
+        jMenu9.setText("Save");
+        jMenu1.add(jMenu9);
+
+        jMenu10.setText("Save as");
+        jMenu1.add(jMenu10);
+
+        jMenuBar1.add(jMenu1);
+
+
+        jMenuBar1.add(Box.createHorizontalGlue());
+        
+        jMenuBar1.add(saved_Label);
+        
+        
 
         setJMenuBar(jMenuBar1);
+
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,10 +273,11 @@ public class driver_gui extends javax.swing.JFrame {
     private javax.swing.JEditorPane jEditorPane2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
