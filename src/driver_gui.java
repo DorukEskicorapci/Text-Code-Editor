@@ -23,24 +23,61 @@ import java.awt.event.KeyEvent;
  */
 public class driver_gui extends javax.swing.JFrame {
     codetrials codetrials = new codetrials();
+    private String check_saved = "No Change";
+    private JLabel saved_Label;
+
     /**
      * Creates new form writing
      */
     public driver_gui() {
         initComponents();
-        jEditorPane1.setEditorKit(new javax.swing.text.StyledEditorKit());
-        jEditorPane2.setEditorKit(new javax.swing.text.StyledEditorKit());
+        JTextPane1.setEditorKit(new javax.swing.text.StyledEditorKit());
+        JTextPane2.setEditorKit(new javax.swing.text.StyledEditorKit());
 
-        jEditorPane1.addCaretListener(e -> updateStyleButtons());
+
+        /*
+        e is the parameter of the lambda expression, 
+        which represents the CaretEvent that is passed to the 
+        caretUpdate method of the CaretListener interface. 
+        The -> symbol separates the parameter from the body of the lambda expression. 
+        */
+        JTextPane1.addCaretListener(e -> updateStyleButtons());
+        StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
+        
+        doc.addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                check_saved = "Unsaved";
+                saved_Label.setText("[" + check_saved + "]");
+            }
+        
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                check_saved = "Unsaved";
+                saved_Label.setText("[" + check_saved + "]");
+            }
+        
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                // Usually for style/attribute changes in a StyledDocument
+                check_saved = "Unsaved";
+                saved_Label.setText("[" + check_saved + "]");
+            }
+        });
+        JTextPane1.addCaretListener(e -> updateStyleButtons());
+
+        
         
     }
+         
+    
 
     private void updateStyleButtons() {
-        int start = jEditorPane1.getSelectionStart();
-        int end = jEditorPane1.getSelectionEnd();
+        int start = JTextPane1.getSelectionStart();
+        int end = JTextPane1.getSelectionEnd();
         int pos = (start == end) ? start : start;
 
-        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+        StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
 
         if (pos >= doc.getLength()) {
             pos = doc.getLength() - 1;
@@ -57,11 +94,6 @@ public class driver_gui extends javax.swing.JFrame {
 
         Button_Bold.setSelected(isBold);
         Button_italic.setSelected(isItalic);
-
-
-        
-
-
     }
 
     
@@ -70,11 +102,12 @@ public class driver_gui extends javax.swing.JFrame {
 
         jFrame1 = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+        JTextPane1 = new javax.swing.JTextPane();
+        
         jToolBar1 = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JMenuItem();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox_texttype = new javax.swing.JComboBox<>();
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         Button_Bold = new javax.swing.JToggleButton();
@@ -83,16 +116,16 @@ public class driver_gui extends javax.swing.JFrame {
         Button_photo = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jEditorPane2 = new javax.swing.JEditorPane();
+        JTextPane2 = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
-        jMenu9 = new javax.swing.JMenu();
+        // String check_saved = "Unsaved"; // moved to class level
         jMenu10 = new javax.swing.JMenu();
-        String check_saved = "Unsaved";
+        
 
         
 
@@ -109,7 +142,7 @@ public class driver_gui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jEditorPane1);
+        jScrollPane1.setViewportView(JTextPane1);
 
         jToolBar1.setRollover(true);
         jToolBar1.setFloatable(false);
@@ -117,18 +150,18 @@ public class driver_gui extends javax.swing.JFrame {
         jLabel1.setText("Font Settings:  ");
         jToolBar1.add(jLabel1);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal Text", "Heading 1", "Heading 2", "Heading 3" }));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox2.setMaximumSize(new java.awt.Dimension(100, 25));
-        jComboBox2.setMinimumSize(new java.awt.Dimension(100, 25));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(100, 25));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_texttype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal Text", "Heading 1", "Heading 2", "Heading 3" }));
+        jComboBox_texttype.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox_texttype.setMaximumSize(new java.awt.Dimension(100, 25));
+        jComboBox_texttype.setMinimumSize(new java.awt.Dimension(100, 25));
+        jComboBox_texttype.setPreferredSize(new java.awt.Dimension(100, 25));
+        jComboBox_texttype.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                jComboBox_texttypeActionPerformed(evt);
             }
         });
-        jToolBar1.add(jComboBox2);
-        jComboBox2.getAccessibleContext().setAccessibleDescription("");
+        jToolBar1.add(jComboBox_texttype);
+        jComboBox_texttype.getAccessibleContext().setAccessibleDescription("");
 
         jComboBox1.setEditable(true);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "12", "16", "20", "24" }));
@@ -175,8 +208,8 @@ public class driver_gui extends javax.swing.JFrame {
         Button_photo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(Button_photo);
 
-        jEditorPane2.setEditable(false);
-        jScrollPane2.setViewportView(jEditorPane2);
+        JTextPane2.setEditable(false);
+        jScrollPane2.setViewportView(JTextPane2);
 
         int version_count = 1;
         jTabbedPane2.addTab("Version " + version_count, jScrollPane2);
@@ -195,8 +228,7 @@ public class driver_gui extends javax.swing.JFrame {
         
 
         
-
-        JLabel saved_Label = new JLabel("[" + check_saved + "]");
+        saved_Label = new JLabel("[" + check_saved + "]");
         
 
         
@@ -214,10 +246,13 @@ public class driver_gui extends javax.swing.JFrame {
 
             javax.swing.JMenuItem versionItem = new javax.swing.JMenuItem("Version " + i);
             versionItem.addActionListener((evt) -> {
-                codetrials.copy(jEditorPane2, jEditorPane1);
+                codetrials.copy(JTextPane2, JTextPane1);
+                check_saved = "No Change";
+                saved_Label.setText("[" + check_saved + "]");
                 
             });
             jMenu8.add(versionItem);
+            
         }
 
         jLabel2.setText("Save");
@@ -226,7 +261,9 @@ public class driver_gui extends javax.swing.JFrame {
 
         // save button
         jLabel2.addActionListener(e -> {
-            new codetrials().copy(jEditorPane1, jEditorPane2);
+            new codetrials().copy(JTextPane1, JTextPane2);
+            check_saved = "Saved";
+            saved_Label.setText("[" + check_saved + "]");
 
         });
 
@@ -239,7 +276,9 @@ public class driver_gui extends javax.swing.JFrame {
         actionMap.put("saveAction", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent d) {
-                new codetrials().copy(jEditorPane1, jEditorPane2);
+                new codetrials().copy(JTextPane1, JTextPane2);
+                check_saved = "Saved";
+                saved_Label.setText("[" + check_saved + "]");
             }
         });
         
@@ -295,18 +334,18 @@ public class driver_gui extends javax.swing.JFrame {
 
     private void Button_italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_italicActionPerformed
         // TODO add your handling code here:
-        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+        StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
         SimpleAttributeSet attr = new SimpleAttributeSet();
         boolean makeItalic = Button_italic.isSelected();
         StyleConstants.setItalic(attr, makeItalic);
 
-        int start = jEditorPane1.getSelectionStart();
-        int end = jEditorPane1.getSelectionEnd();
+        int start = JTextPane1.getSelectionStart();
+        int end = JTextPane1.getSelectionEnd();
         int length = end - start;
-        if(jEditorPane1.getSelectedText() != null){
+        if(JTextPane1.getSelectedText() != null){
             doc.setCharacterAttributes(start, length, attr, false);
         } else {
-            MutableAttributeSet inputAttrs = ((StyledEditorKit) jEditorPane1.getEditorKit()).getInputAttributes();
+            MutableAttributeSet inputAttrs = ((StyledEditorKit) JTextPane1.getEditorKit()).getInputAttributes();
             StyleConstants.setItalic(inputAttrs, makeItalic);
         }
 
@@ -316,25 +355,25 @@ public class driver_gui extends javax.swing.JFrame {
     private void Button_BoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_BoldActionPerformed
         // TODO add your handling code here:
 
-        StyledDocument doc = (StyledDocument) jEditorPane1.getDocument();
+        StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
         SimpleAttributeSet attr = new SimpleAttributeSet();
         boolean makeBold = Button_Bold.isSelected();
         StyleConstants.setBold(attr, makeBold);
 
-        int start = jEditorPane1.getSelectionStart();
-        int end = jEditorPane1.getSelectionEnd();
+        int start = JTextPane1.getSelectionStart();
+        int end = JTextPane1.getSelectionEnd();
         int length = end - start;
-        if(jEditorPane1.getSelectedText() != null){
+        if(JTextPane1.getSelectedText() != null){
             doc.setCharacterAttributes(start, length, attr, false);
         } else {
-        MutableAttributeSet inputAttrs = ((StyledEditorKit) jEditorPane1.getEditorKit()).getInputAttributes();
-        StyleConstants.setBold(inputAttrs, makeBold);
+            MutableAttributeSet inputAttrs = ((StyledEditorKit) JTextPane1.getEditorKit()).getInputAttributes();
+            StyleConstants.setBold(inputAttrs, makeBold);
         }
     }//GEN-LAST:event_Button_BoldActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jComboBox_texttypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jComboBox_texttypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,16 +419,15 @@ public class driver_gui extends javax.swing.JFrame {
     private javax.swing.JButton Button_photo;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JEditorPane jEditorPane2;
+    private javax.swing.JComboBox<String> jComboBox_texttype;
+    private javax.swing.JTextPane JTextPane1;
+    private javax.swing.JTextPane JTextPane2;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
