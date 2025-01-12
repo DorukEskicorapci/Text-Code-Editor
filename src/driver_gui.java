@@ -3,8 +3,6 @@ import javax.swing.ActionMap;
 import javax.swing.Box;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.KeyStroke;
 import javax.swing.text.MutableAttributeSet;
