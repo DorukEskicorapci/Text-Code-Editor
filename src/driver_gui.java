@@ -4,13 +4,14 @@ import javax.swing.Box;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.StyledEditorKit;
-
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -166,6 +167,12 @@ public class driver_gui extends javax.swing.JFrame {
         jComboBox1.setMaximumSize(new java.awt.Dimension(60, 25));
         jComboBox1.setMinimumSize(new java.awt.Dimension(50, 25));
         jComboBox1.setPreferredSize(new java.awt.Dimension(50, 25));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1_puntoActionPerformed(evt);
+            }
+        });
+
         jToolBar1.add(jComboBox1);
         jToolBar1.add(jSeparator1);
 
@@ -247,7 +254,6 @@ public class driver_gui extends javax.swing.JFrame {
                 codetrials.copy(JTextPane2, JTextPane1);
                 check_saved = "No Change";
                 saved_Label.setText("[" + check_saved + "]");
-                
             });
             jMenu8.add(versionItem);
             
@@ -274,7 +280,7 @@ public class driver_gui extends javax.swing.JFrame {
         actionMap.put("saveAction", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent d) {
-                new codetrials().copy(JTextPane1, JTextPane2);
+                new codetrials().copy_styledtext(JTextPane1, JTextPane2);
                 check_saved = "Saved";
                 saved_Label.setText("[" + check_saved + "]");
             }
@@ -370,6 +376,29 @@ public class driver_gui extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_BoldActionPerformed
 
     private void jComboBox_texttypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
+        // TODO add your handling code here:
+
+        StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
+        SimpleAttributeSet attr = new SimpleAttributeSet();
+
+        int punto = Integer.parseInt((String) jComboBox_texttype.getSelectedItem());
+
+        StyleConstants.setFontSize(attr, punto);
+        
+        
+        int start = JTextPane1.getSelectionStart();
+        int end = JTextPane1.getSelectionEnd();
+        int length = end - start;
+        if(JTextPane1.getSelectedText() != null){
+            doc.setCharacterAttributes(start, length, attr, false);
+        } else {
+            MutableAttributeSet inputAttrs = ((StyledEditorKit) JTextPane1.getEditorKit()).getInputAttributes();
+            StyleConstants.setFontSize(inputAttrs, punto);
+        }
+
+    }//GEN-LAST:event_jComboBox_texttypeActionPerformed
+
+    private void jComboBox1_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_texttypeActionPerformed
 

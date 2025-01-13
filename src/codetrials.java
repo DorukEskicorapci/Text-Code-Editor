@@ -1,8 +1,10 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 public class codetrials {
     public static boolean createNote2;
@@ -45,9 +47,37 @@ public class codetrials {
     }
 
     public void copy(JTextPane source, JTextPane target) {
-        target.setText(source.getText());
+        //target.setText(source.getText());
+        target.setDocument(source.getDocument());
     }
 
+    public void copy_styledtext (JTextPane source, JTextPane target) {
+        try {
+            StyledDocument sourceDoc = (StyledDocument) source.getDocument();
+            DefaultStyledDocument targetDoc = new DefaultStyledDocument();
+    
+            
+            String text = sourceDoc.getText(0, sourceDoc.getLength());
+            targetDoc.insertString(0, text, null);
+    
+            int offset = 0;
+            while (offset < sourceDoc.getLength()) {
+                Element element = sourceDoc.getCharacterElement(offset);
+                int start = element.getStartOffset();
+                int end = element.getEndOffset();
+                AttributeSet as = element.getAttributes();
+    
+                targetDoc.setCharacterAttributes(start, end - start, as, false);
+    
+                offset = end;
+            }
+    
+            target.setDocument(targetDoc);
+    
+        } catch (BadLocationException ex) {
+            ex.printStackTrace();
+        }
+    }
     public void photo(JFrame frame){
         // Add an image to the app
         JLabel imageLabel = new JLabel();
