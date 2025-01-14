@@ -378,6 +378,12 @@ public class driver_gui extends javax.swing.JFrame {
     private void jComboBox_texttypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
         // TODO add your handling code here:
 
+        
+    }//GEN-LAST:event_jComboBox_texttypeActionPerformed
+
+    private void jComboBox1_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
+        // TODO add your handling code here:
+
         StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
         SimpleAttributeSet attr = new SimpleAttributeSet();
 
@@ -396,10 +402,7 @@ public class driver_gui extends javax.swing.JFrame {
             StyleConstants.setFontSize(inputAttrs, punto);
         }
 
-    }//GEN-LAST:event_jComboBox_texttypeActionPerformed
 
-    private void jComboBox1_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_texttypeActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_texttypeActionPerformed
 
     /**
