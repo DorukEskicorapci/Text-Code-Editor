@@ -387,8 +387,8 @@ public class driver_gui extends javax.swing.JFrame {
         StyledDocument doc = (StyledDocument) JTextPane1.getDocument();
         SimpleAttributeSet attr = new SimpleAttributeSet();
 
-        int punto = Integer.parseInt((String) jComboBox_texttype.getSelectedItem());
-
+        int punto = Integer.parseInt((String) jComboBox1.getSelectedItem());
+        //int a = Integer.valueOf(jComboBox_texttype.getSelectedItem());
         StyleConstants.setFontSize(attr, punto);
         
         
