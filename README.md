@@ -39,6 +39,8 @@ This project represents my journey into developing a full-stack application usin
 - **Start Date:** December 2024
 - **End Date:** (Ongoing)
 
+#
+
 **Installation:**
 
 To run this project:
