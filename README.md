@@ -28,7 +28,7 @@ This project represents my journey into developing a full-stack application usin
 - **File Operations:**
   - Menu bar options for opening, saving, and saving as different versions of documents, including keyboard shortcuts (e.g., `Ctrl+S` for save).
  
-  - **Technologies Used:**
+**Technologies Used:**
 
 - Java
 - Java Swing & AWT
