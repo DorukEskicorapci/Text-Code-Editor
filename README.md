@@ -2,7 +2,7 @@
 
 **Project Overview:**
 
-This project represents my journey into developing a full-stack application using Java Swing and AWT libraries, crafted with NetBeans IDE. The Note & Code Editor is designed to mimic some functionalities of an Integrated Development Environment (IDE), with a focus on user-friendly text editing for both notes and code.
+This project represents is the first fully full-stack application I built using Java Swing and AWT libraries. The Note & Code Editor is designed to mimic some functionalities of an Integrated Development Environment (IDE), with a focus on user-friendly text editing for both notes and code.
 
 **Features:**
 
