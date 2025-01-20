@@ -9,11 +9,7 @@ This project represents is the first fully full-stack application I built using 
 - **Java Swing and AWT Integration:** 
   - Utilized Swing components and AWT for creating an intuitive GUI, enhancing interaction and usability.
 
-- **IDE-like Functionalities:**
-  - **Syntax Highlighting:** Provides visual cues for better code readability.
-  - **Code Formatting:** Assists in maintaining clean and organized code structures.
-
-- **File and Database Management:**
+- **File Management:**
   - Efficient saving, retrieval, and organization of both notes and code snippets in a database or file system.
 
 **Key Components:**
@@ -55,3 +51,14 @@ To run this project:
 - Use the toolbar for text manipulation.
 - Save your work through the File menu or with `Ctrl+S`.
 - Manage different versions of your documents for version control.
+
+#
+**Plans for Future:**
+
+- Functional header selection bar
+- Automatic outline creator based on header selection.
+- IDE-like Functionalities:
+  - Syntax Highlighting: Provides visual cues for better code readability.
+  - Code Formatting: Assists in maintaining clean and organized code structures.
+- Save as option
+- Being able to edit saved files (.txt, .java, .py, etc.)
